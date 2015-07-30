@@ -29,7 +29,7 @@ class BooksController < ApplicationController
     if @book.update(clean_params)
       redirect_to books_path, notice: '成功更新書本'
     else
-      render :new
+      render :edit
     end
   end
 
