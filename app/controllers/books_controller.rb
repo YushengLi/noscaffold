@@ -1,10 +1,11 @@
 class BooksController < ApplicationController
+  before_action :find_book, only[:show, :edit, :upadte, :destroy]
+
   def index
     @books = Book.all
   end
 
   def show
-    @book = Book.find_by(id: params[:id])
   end
 
   def new
@@ -22,12 +23,9 @@ class BooksController < ApplicationController
   end
 
   def edit
-    @book = Book.find_by(id: params[:id])
   end
 
   def update
-    @book = Book.find_by(id: params[:id])
-
     if @book.update(clean_params)
       redirect_to books_path, notice: '成功更新書本'
     else
@@ -37,7 +35,6 @@ class BooksController < ApplicationController
 
 
   def destroy
-    @book = Book.find_by(id: params[:id])
     @book.destroy
     # flash[:notice] = '已刪除'
     redirect_to books_path, notice: '已成功刪除。'
@@ -46,5 +43,9 @@ class BooksController < ApplicationController
   private
   def clean_params
     clean_params = params.require(:book).permit(:title, :content)
+  end
+
+  def find_book
+    @book = Book.find_by(id: params[:id])
   end
 end
