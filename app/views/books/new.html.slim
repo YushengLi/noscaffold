@@ -1,3 +1,13 @@
 h1 新增書本
 
 = form_for @book do |f|
+  p 
+    | Title:
+    br
+    = f.text_field :title
+  p
+    | Content:
+    br
+    = f.text_area :content
+  
+  p = f.submit
