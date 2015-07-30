@@ -17,6 +17,21 @@ class BooksController < ApplicationController
     end
   end
 
+  def edit
+    @book = Book.find_by(id: params[:id])
+  end
+
+  def update
+    @book = Book.find_by(id: params[:id])
+
+    if @book.update(clean_params)
+      redirect_to books_path, notice: '成功更新書本'
+    else
+      render :new
+    end
+  end
+
+
   def destroy
     @book = Book.find_by(id: params[:id])
     @book.destroy
